@@ -1,0 +1,21 @@
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DB")
+}
+
+model Subject {
+  id        Int        @id
+  title     String
+  prompt    String
+  image     String
+  video     String
+  questions Question[]
+}
+
+model Question {
+  id        Int     @id
+  subjectID Int
+  question  String
+  answer    String
+  subject   Subject @relation(fields: [subjectID], references: [id])
+}
